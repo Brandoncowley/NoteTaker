@@ -1,6 +1,7 @@
 // Dependecncies
 const util = require('util');
 const fs = require('fs');
+const generateUniqueId = require('generate-unique-id');
 
 
 const readNote = util.promisify(fs.readFile);
@@ -32,6 +33,8 @@ class Save {
         if (!title || !text) {
             throw new Error('Both title and text can not be blank');
         }
+
+        const newNote = { title, text, id: generateUniqueId() };
 
         // Retrieve Notes, add the new note, update notes
         return this.retrieveNotes()
